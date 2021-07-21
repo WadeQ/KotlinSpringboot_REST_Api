@@ -5,6 +5,8 @@ import com.wadektech.springkotlindemo.dto.UpdateUserRequest
 import com.wadektech.springkotlindemo.dto.UserResponse
 import com.wadektech.springkotlindemo.resources.IUserResourceImpl.Companion.BASE_URL
 import com.wadektech.springkotlindemo.service.IUserManagementService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,8 +25,8 @@ class IUserResourceImpl(
     }
 
     @GetMapping
-    override fun findAllUsers(): ResponseEntity<List<UserResponse>> {
-        return ResponseEntity.ok(this.userManagementService.findAllUsers())
+    override fun findAllUsers(pageable: Pageable): ResponseEntity<Page<UserResponse>> {
+        return ResponseEntity.ok(this.userManagementService.findAllUsers(pageable))
     }
 
     @PostMapping

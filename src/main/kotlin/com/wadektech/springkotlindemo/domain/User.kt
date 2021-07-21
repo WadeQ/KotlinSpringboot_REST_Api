@@ -1,9 +1,6 @@
 package com.wadektech.springkotlindemo.domain
 
-import javax.persistence.Column
-import javax.persistence.Id
-import javax.persistence.SequenceGenerator
-
+import javax.persistence.*
 
 data class User(
     @Id
@@ -13,7 +10,7 @@ data class User(
         initialValue = 1,
         allocationSize = 1
     )
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = USER_SEQUENCE)
     @Column(name = "user_id")
     val id : Int = 1,
     @Column(name = "username")

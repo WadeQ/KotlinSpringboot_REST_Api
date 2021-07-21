@@ -7,8 +7,11 @@ import com.wadektech.springkotlindemo.dto.UpdateUserRequest
 import com.wadektech.springkotlindemo.dto.UserResponse
 import com.wadektech.springkotlindemo.mapper.AddUserRequestMapper
 import com.wadektech.springkotlindemo.utils.toUserResponse
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.GetMapping
 
 @Service
 class UserManagementServiceImpl(
@@ -20,8 +23,8 @@ class UserManagementServiceImpl(
        return this.getUserById(userId).toUserResponse()
     }
 
-    override fun findAllUsers(): List<UserResponse> {
-       return this.userDao.findAll().map(User?::toUserResponse)
+    override fun findAllUsers(pageable: Pageable): Page<UserResponse> {
+        return this.userDao.findAll(pageable).map(User?::toUserResponse)
     }
 
     override fun saveUser(addUserRequest: AddUserRequest): UserResponse {

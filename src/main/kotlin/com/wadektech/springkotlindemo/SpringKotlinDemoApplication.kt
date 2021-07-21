@@ -8,12 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
 @RestController
-class SpringKotlinDemoApplication{
-
-	@GetMapping
-	fun sayHelloToWorld() : User = User(1,"Wadek","derrickwadek@gmail.com")
-
-}
+class SpringKotlinDemoApplication
 
 fun main(args: Array<String>) {
 	runApplication<SpringKotlinDemoApplication>(*args)
