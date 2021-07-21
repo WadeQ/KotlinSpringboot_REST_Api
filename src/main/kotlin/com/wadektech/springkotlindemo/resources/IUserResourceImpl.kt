@@ -5,33 +5,47 @@ import com.wadektech.springkotlindemo.dto.UpdateUserRequest
 import com.wadektech.springkotlindemo.dto.UserResponse
 import com.wadektech.springkotlindemo.resources.IUserResourceImpl.Companion.BASE_URL
 import com.wadektech.springkotlindemo.service.IUserManagementService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 @RestController
 @RequestMapping(value = [BASE_URL]) //specifies the path
 class IUserResourceImpl(
     private val userManagementService: IUserManagementService
 ) : IUserResource {
-    override fun findUserById(userId: Int): ResponseEntity<UserResponse?> {
-        TODO("Not yet implemented")
+
+    @GetMapping("/{userId}")
+    override fun findUserById(@PathVariable userId: Int): ResponseEntity<UserResponse?> {
+        val userResponse : UserResponse? = this.userManagementService.findUserById(userId)
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse)
     }
 
+    @GetMapping
     override fun findAllUsers(): ResponseEntity<List<UserResponse>> {
-        TODO("Not yet implemented")
+        return ResponseEntity.ok(this.userManagementService.findAllUsers())
     }
 
-    override fun saveUser(addUserRequest: AddUserRequest): ResponseEntity<UserResponse?> {
-        TODO("Not yet implemented")
+    @PostMapping
+    override fun saveUser(@RequestBody addUserRequest: AddUserRequest): ResponseEntity<UserResponse?> {
+        val userResponse = this.userManagementService.saveUser(addUserRequest)
+        return ResponseEntity.created(URI.create(
+            BASE_URL.plus("/${userResponse.id}")))
+            .body(userResponse)
     }
 
-    override fun updateUser(updateUserRequest: UpdateUserRequest): ResponseEntity<UserResponse?> {
-        TODO("Not yet implemented")
+    @PutMapping
+    override fun updateUser(@RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<UserResponse?> {
+        return ResponseEntity.ok(this.userManagementService.updateUser(updateUserRequest))
     }
 
-    override fun deleteUserById(userId: Int): ResponseEntity<Unit> {
-        TODO("Not yet implemented")
+    @DeleteMapping("/{userId}")
+    override fun deleteUserById(@PathVariable userId: Int): ResponseEntity<Unit> {
+        this.userManagementService.deleteUserById(userId)
+        return ResponseEntity
+            .noContent()
+            .build()
     }
 
     companion object {
