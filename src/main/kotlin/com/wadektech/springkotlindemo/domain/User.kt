@@ -2,6 +2,7 @@ package com.wadektech.springkotlindemo.domain
 
 import javax.persistence.*
 
+@Entity
 data class User(
     @Id
     @SequenceGenerator(
