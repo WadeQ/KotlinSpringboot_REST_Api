@@ -9,8 +9,8 @@ data class User(
         name = USER_SEQUENCE ,
         sequenceName = USER_SEQUENCE,
         initialValue = 1,
-        allocationSize = 1
-    )
+        allocationSize = 1)
+
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = USER_SEQUENCE)
     @Column(name = "user_id")
     val id : Int = 1,

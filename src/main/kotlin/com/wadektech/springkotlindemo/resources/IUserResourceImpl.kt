@@ -20,34 +20,30 @@ class IUserResourceImpl(
 
     @GetMapping("/{userId}")
     override fun findUserById(@PathVariable userId: Int): ResponseEntity<UserResponse?> {
-        val userResponse : UserResponse? = this.userManagementService.findUserById(userId)
+        val userResponse : UserResponse? = userManagementService.findUserById(userId)
         return ResponseEntity.status(HttpStatus.OK).body(userResponse)
     }
 
     @GetMapping
     override fun findAllUsers(pageable: Pageable): ResponseEntity<Page<UserResponse>> {
-        return ResponseEntity.ok(this.userManagementService.findAllUsers(pageable))
+        return ResponseEntity.ok(userManagementService.findAllUsers(pageable))
     }
 
     @PostMapping
     override fun saveUser(@RequestBody addUserRequest: AddUserRequest): ResponseEntity<UserResponse?> {
-        val userResponse = this.userManagementService.saveUser(addUserRequest)
-        return ResponseEntity.created(URI.create(
-            BASE_URL.plus("/${userResponse.id}")))
-            .body(userResponse)
+        val userResponse = userManagementService.saveUser(addUserRequest)
+        return ResponseEntity.created(URI.create(BASE_URL.plus("/${userResponse.id}"))).body(userResponse)
     }
 
     @PutMapping
     override fun updateUser(@RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<UserResponse?> {
-        return ResponseEntity.ok(this.userManagementService.updateUser(updateUserRequest))
+        return ResponseEntity.ok(userManagementService.updateUser(updateUserRequest))
     }
 
     @DeleteMapping("/{userId}")
     override fun deleteUserById(@PathVariable userId: Int): ResponseEntity<Unit> {
-        this.userManagementService.deleteUserById(userId)
-        return ResponseEntity
-            .noContent()
-            .build()
+        userManagementService.deleteUserById(userId)
+        return ResponseEntity.noContent().build()
     }
 
     companion object {

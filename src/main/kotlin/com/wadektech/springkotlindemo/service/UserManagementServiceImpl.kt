@@ -20,11 +20,11 @@ class UserManagementServiceImpl(
 ) : IUserManagementService {
 
     override fun findUserById(userId: Int): UserResponse? {
-       return this.getUserById(userId).toUserResponse()
+       return getUserById(userId).toUserResponse()
     }
 
     override fun findAllUsers(pageable: Pageable): Page<UserResponse> {
-        return this.userDao.findAll(pageable).map(User?::toUserResponse)
+        return userDao.findAll(pageable).map(User?::toUserResponse)
     }
 
     override fun saveUser(addUserRequest: AddUserRequest): UserResponse {
@@ -34,21 +34,20 @@ class UserManagementServiceImpl(
     }
 
     override fun updateUser(updateUserRequest: UpdateUserRequest): UserResponse {
-       val updatedUser : User = (this.getUserById(updateUserRequest.id) ?: throw IllegalStateException(
-           "${updateUserRequest.id} not found!"
-       ))
+       val updatedUser : User = (getUserById(updateUserRequest.id) ?: throw IllegalStateException(
+           "${updateUserRequest.id} not found!"))
 
        return this.saveOrUpdateUser(
             updatedUser.apply {
-                this.email = updateUserRequest.email
-                this.username = updateUserRequest.username
+                email = updateUserRequest.email
+                username = updateUserRequest.username
             }
         )
     }
 
-    override fun deleteUserById(userId: Int) = this.userDao.deleteById(userId)
+    override fun deleteUserById(userId: Int) = userDao.deleteById(userId)
 
-    private fun getUserById(userId: Int?) : User? = this.userDao.findByIdOrNull(userId)
+    private fun getUserById(userId: Int?) : User? = userDao.findByIdOrNull(userId)
 
-    private fun saveOrUpdateUser(user: User) : UserResponse = this.userDao.save(user).toUserResponse()
+    private fun saveOrUpdateUser(user: User) : UserResponse = userDao.save(user).toUserResponse()
 }
