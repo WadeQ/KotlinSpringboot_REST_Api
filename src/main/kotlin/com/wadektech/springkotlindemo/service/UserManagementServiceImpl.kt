@@ -1,6 +1,6 @@
 package com.wadektech.springkotlindemo.service
 
-import com.wadektech.springkotlindemo.dao.IPersonDao
+import com.wadektech.springkotlindemo.dao.IUserDao
 import com.wadektech.springkotlindemo.domain.User
 import com.wadektech.springkotlindemo.dto.AddUserRequest
 import com.wadektech.springkotlindemo.dto.UpdateUserRequest
@@ -11,11 +11,10 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.GetMapping
 
 @Service
 class UserManagementServiceImpl(
-    private val userDao: IPersonDao,
+    private val userDao: IUserDao,
     private val addUserRequestMapper: AddUserRequestMapper
 ) : IUserManagementService {
 
