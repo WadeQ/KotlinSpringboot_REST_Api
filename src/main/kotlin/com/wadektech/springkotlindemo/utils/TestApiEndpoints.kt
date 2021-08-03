@@ -1,6 +1,5 @@
 package com.wadektech.springkotlindemo.utils
 
-import com.wadektech.springkotlindemo.resources.IUserResourceImpl
 import com.wadektech.springkotlindemo.resources.IUserResourceImpl.Companion.BASE_URL
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.devtools.DevTools
@@ -10,9 +9,11 @@ import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
 open class TestApiEndpoints {
     lateinit var devTools: DevTools
     private lateinit var driver: ChromeDriver
+
 
     fun captureHttpRequests() {
         setUpDriver()

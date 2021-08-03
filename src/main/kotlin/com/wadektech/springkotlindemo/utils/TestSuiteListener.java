@@ -13,8 +13,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
-public class TestSuiteListener implements ITestListener, IAnnotationTransformer {
 
+public class TestSuiteListener implements ITestListener, IAnnotationTransformer {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {

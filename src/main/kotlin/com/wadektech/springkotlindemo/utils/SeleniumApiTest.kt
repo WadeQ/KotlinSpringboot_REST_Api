@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit
 
 open class SeleniumApiTest {
     private var extentHtmlReporter: ExtentHtmlReporter? = null
-
     /*
     * Here we will be initializing reports
     * */
